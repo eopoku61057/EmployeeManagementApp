@@ -1,0 +1,38 @@
+﻿@model EmployeeManagementDemo.ViewModels.EmployeeCreateViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Add Employee</h1>
+<form asp-controller="employee" asp-action="create" method="post" class="mt-3">
+    <div class="form-group row">
+        <label asp-for="@Model.Employee.Name" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="@Model.Employee.Name" class="form-control" placeholder="Name">
+            <span asp-validation-for="@Model.Employee.Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="@Model.Employee.Email" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="@Model.Employee.Email" class="form-control" placeholder="Email">
+            <span asp-validation-for="@Model.Employee.Email" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+            <label asp-for="@Model.Employee.Department" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <select asp-for="@Model.Employee.DepartmentId" class="custom-select mr-sm-2"
+                        asp-items="@(new SelectList(Model.Departments,"DepartmentId","DepartmentName"))"></select>
+            </div>
+        </div>
+
+
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+    </div>
+</form>

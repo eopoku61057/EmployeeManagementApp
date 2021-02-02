@@ -1,0 +1,68 @@
+﻿Step-1: Create Database and tables.
+************************************************************************
+SQL scripts:
+
+Create Database EmployeeDB
+go
+
+use EmployeeDB
+
+go
+
+
+
+
+CREATE TABLE [dbo].[Department] (
+    [DepartmentId]   INT          IDENTITY (1, 1) NOT NULL,
+    [DepartmentName] VARCHAR (15) NULL,
+    PRIMARY KEY CLUSTERED ([DepartmentId] ASC)
+);
+
+go
+
+CREATE TABLE [dbo].[Employee] (
+    [Id]           INT          NOT NULL IDENTITY,
+    [Name]         VARCHAR (50) NOT NULL,
+    [Email]        VARCHAR (50) NOT NULL,
+    [DepartmentId] INT          NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_DepartmentId_ToDepartmentTable] FOREIGN KEY ([DepartmentId]) REFERENCES [dbo].[Department] ([DepartmentId])
+);
+
+
+
+go
+
+insert into Department values('HR')
+insert into Department values('IT')
+insert into Department values('Payroll')
+
+go
+**************************************************************************************************************
+
+Step-2 : Install Nuget Packages in the project.
+
+Install NuGet packages
+The following NuGet packages should be added to work with the SQL Server database and scaffolding. Run these commands in Package Manager Console:
+
+ Microsoft.VisualStudio.Web.CodeGeneration.Design 
+ Microsoft.EntityFrameworkCore.Tools 
+Microsoft.EntityFrameworkCore
+ Microsoft.EntityFrameworkCore.SqlServer 
+********************************************************************************************
+
+Step-3 : Scaffolding 
+
+Connect application with database
+Run the following scaffold command in Package Manager Console to reverse engineer the database to create database context and entity POCO classes from tables. The scaffold command will create POCO class only for the tables that have a primary key.
+
+Scaffold-DbContext "Server=(localdb)\MSSQLLocalDB;Database=EmployeeDB;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models 
+
+Connection—Sets connection string of the database.
+Provider—Sets which provider to use to connect database.
+OutputDir—Sets the directory where the POCO classes are to be generated.
+
+
+
+
+
